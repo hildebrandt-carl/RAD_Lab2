@@ -1,0 +1,1 @@
+Create a separate folder for each MCU familty. Interface definitions which should be observed throughout all MCUs shall be stored in this folder (mcu).
