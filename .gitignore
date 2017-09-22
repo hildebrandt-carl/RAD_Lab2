@@ -1,6 +1,10 @@
-*.pdf
-*.ps
-*.midi
-*.mid
-*.log
-*~
+# ignore a file type
+*.o
+*.d
+*.dis
+*.hex
+*.exe
+*.b64
+
+# add an exception (using !) to the preceding rule to track a specific file
+#!package.json
