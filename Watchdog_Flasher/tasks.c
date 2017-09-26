@@ -9,11 +9,11 @@ PROCESS_THREAD(LED1,ev,data){
 
 	PROCESS_BEGIN();
 
-	int i = 0 ;
+	int i = 0;
 	int j = 0;
 
-	P3OUT |= 1 << 6; //set bit 6 in P3OUT to 1
-	P3DIR |= 1 << 6; //Since Green LED is connected to P3.6, set bit 6 in P3DIR to 1
+	P3OUT |= (1 << 6); //set bit 6 in P3OUT to 1
+	P3DIR |= (1 << 6); //Since Green LED is connected to P3.6, set bit 6 in P3DIR to 1
 
 	for(i =0; i <= 10000; i++)
 	{
@@ -22,8 +22,8 @@ PROCESS_THREAD(LED1,ev,data){
 
 	j = 0;
 
-	P3OUT = 0 << 6; //set bit 6 in P3OUT to 1
-	P3DIR = 0 << 6; //Since Green LED is connected to P3.6, set bit 6 in P3DIR to 1
+	P3OUT &= (0xff)&(0 << 6); //set bit 6 in P3OUT to 1
+	P3DIR &= (0xff)&(0 << 6); //Since Green LED is connected to P3.6, set bit 6 in P3DIR to 1
 
 	for(i =0; i <= 10000; i++)
 	{
