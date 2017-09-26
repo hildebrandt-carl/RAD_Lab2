@@ -1,4 +1,5 @@
 #include "header.h"
+
 PROCESS(LED1,"LED1 TASK");
 PROCESS(LED2,"LED2 TASK");
 PROCESS(LED3,"LED3 TASK");
@@ -8,28 +9,28 @@ PROCESS(WDTCHECK,"WDTCHECK TASK");
 PROCESS_THREAD(LED1,ev,data){
 
 	PROCESS_BEGIN();
-
+	printf("Soup Starter\n");
 	int i = 0;
 	int j = 0;
 
 	P3OUT |= (1 << 6); //set bit 6 in P3OUT to 1
 	P3DIR |= (1 << 6); //Since Green LED is connected to P3.6, set bit 6 in P3DIR to 1
-
-	for(i =0; i <= 10000; i++)
+	printf("ghello\n");
+	for(j=0;j<1000;j++)
 	{
-		j++;
+		for(i=0;i<1275;i++);
 	}
-
-	j = 0;
+	printf("goodbye\n");
+	
 
 	P3OUT &= (0xff)&(0 << 6); //set bit 6 in P3OUT to 1
 	P3DIR &= (0xff)&(0 << 6); //Since Green LED is connected to P3.6, set bit 6 in P3DIR to 1
 
-	for(i =0; i <= 10000; i++)
+	for(j=0;j<1000;j++)
 	{
-		j++;
+		for(i=0;i<1275;i++);
 	}
-
+	
 	process_start(&WDTCHECK, NULL);
 	PROCESS_END();
 

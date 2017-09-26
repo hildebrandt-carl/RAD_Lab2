@@ -19,11 +19,7 @@ AUTOSTART_PROCESSES(&main_process);
 
 
 uint8_t getCOUNTER(uint8_t i){
-
-	
 		return -1;	
-	
-
 }
 
 uint8_t getPROGRESS(){
@@ -48,7 +44,7 @@ PROCESS_THREAD(main_process, ev, data){
 	//WDTCTL = WDTPW + WDTCNTCL + WDTHOLD +WDTISx;
 
 	//start the watchdog
-	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW;
+	//WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW;
 	
 	WDTCTL = WDTPW + WDTCNTCL + WDTHOLD + WDTIS0;
 	
@@ -57,12 +53,12 @@ PROCESS_THREAD(main_process, ev, data){
 	/*start the event timer and set its event period to 1 second*/
 	etimer_set(&et, 1*CLOCK_SECOND);
 	PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-	
+
 	process_start(&LED1,NULL);
 	
-	process_start(&LED2, NULL);
+	//process_start(&LED2, NULL);
 	
-	process_start(&LED3,NULL);
+	//process_start(&LED3,NULL);
 
  	
 	}
