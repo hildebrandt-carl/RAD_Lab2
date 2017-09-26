@@ -9,10 +9,41 @@ PROCESS(WDTCHECK,"WDTCHECK TASK");
 PROCESS_THREAD(LED1,ev,data){
 
 	PROCESS_BEGIN();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
 
         P3OUT ^= (1<<6); // toggle bit 6 in P3OUT (GREEN LED)
         P3DIR ^= (1<<6); // toggle bit 6 in P3DIR (GREEN LED)
 
+=======
+	printf("Soup Starter\n");
+	int i = 0;
+	int j = 0;
+
+	P3OUT |= (1 << 6); //set bit 6 in P3OUT to 1
+	P3DIR |= (1 << 6); //Since Green LED is connected to P3.6, set bit 6 in P3DIR to 1
+	printf("ghello\n");
+	for(j=0;j<1000;j++)
+	{
+		for(i=0;i<1275;i++);
+	}
+	printf("goodbye\n");
+	
+>>>>>>> 60f9debc6dfc319ce4f34b462ad771553bd73b9e
+
+        P3OUT ^= (1<<6); // toggle bit 6 in P3OUT (GREEN LED)
+        P3DIR ^= (1<<6); // toggle bit 6 in P3DIR (GREEN LED)
+
+<<<<<<< HEAD
+=======
+	for(j=0;j<1000;j++)
+	{
+		for(i=0;i<1275;i++);
+	}
+	
+>>>>>>> 27e4f05eb5e26393f2278a92ded1827741365d1b
+>>>>>>> 60f9debc6dfc319ce4f34b462ad771553bd73b9e
 	process_start(&WDTCHECK, NULL);
 	PROCESS_END();
 
