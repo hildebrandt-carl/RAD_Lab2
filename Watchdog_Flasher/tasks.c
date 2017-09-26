@@ -52,7 +52,7 @@ PROCESS_THREAD(WDTCHECK,ev,data){
 	PROCESS_BEGIN();
 
 	//TODO: 
-	printf(getPROGRESS());
+	printf("%d\n",getPROGRESS());
 
 	PROCESS_END();
 
