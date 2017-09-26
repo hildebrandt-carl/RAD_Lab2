@@ -44,7 +44,6 @@ PROCESS_THREAD(main_process, ev, data){
 	/*begin the process*/
 	PROCESS_BEGIN();	
 	
-
 	/*initialize the watchdog below by uncommenting the line and then redefine the WDTIS bits according to the time period you need for the watchdog. Note that WDTIS0 refers to bit 0 among WDTIS bits and so on. */
 	//WDTCTL = WDTPW + WDTCNTCL + WDTHOLD +WDTISx;
 
@@ -59,12 +58,9 @@ PROCESS_THREAD(main_process, ev, data){
 	etimer_set(&et, 1*CLOCK_SECOND);
 	PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 	
-	
 	process_start(&LED1,NULL);
 	
-	
 	process_start(&LED2, NULL);
-	
 	
 	process_start(&LED3,NULL);
 
