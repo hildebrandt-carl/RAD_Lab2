@@ -45,7 +45,7 @@ uint8_t getCOUNTER(uint8_t i)
 	}	
 }
 
-uint8_t clearCOUNTER(uint8_t i)
+void clearCOUNTER(uint8_t i)
 {
 	switch(i)   
 	{  
