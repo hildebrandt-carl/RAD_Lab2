@@ -10,12 +10,14 @@ PROCESS_THREAD(LED1,ev,data){
 
 	PROCESS_BEGIN();
 
-        P3OUT ^= (1<<6); // toggle bit 6 in P3OUT (GREEN LED)
-	P3DIR ^= (1<<6); // toggle bit 6 in P3DIR (GREEN LED)
+	printf("Process1\n");
+
+    P3OUT ^= (1<<6); // toggle bit 6 in P3OUT (GREEN LED)
+	P3DIR |= (1<<6); // toggle bit 6 in P3DIR (GREEN LED)
 
 	incrementCOUNTER(1);
 	int g = getCOUNTER(1);
-	if(g > 10){
+	if(g > 6){
 		setPROGRESS(1);
 		clearCOUNTER(1);
 	}
@@ -31,13 +33,18 @@ PROCESS_THREAD(LED1,ev,data){
 PROCESS_THREAD(LED2,ev,data){
 
 	PROCESS_BEGIN();
+
+	printf("Process2\n");
 	
-	P3OUT ^= (1<<7); // toggle bit 7 in P3OUT (YELLOW LED)
-	P3DIR ^= (1<<7); // toggle bit 7 in P3DIR (YELLOW LED)
+	if(getCOUNTER(2) % 2 == 0)
+	{
+		P3OUT ^= (1<<7); // toggle bit 7 in P3OUT (YELLOW LED)
+		P3DIR |= (1<<7); // toggle bit 7 in P3DIR (YELLOW LED)
+	}
 
 	incrementCOUNTER(2);
 	int g = getCOUNTER(2);
-	if(g > 10){
+	if(g > 8){
 		setPROGRESS(2);
 		clearCOUNTER(2);
 	}
@@ -52,12 +59,14 @@ PROCESS_THREAD(LED3,ev,data){
 
 	PROCESS_BEGIN();
 
+	printf("Process3\n");
+
 	P1OUT ^= (1<<7); // toggle bit 7 in P1OUT (RED LED)
-	P1DIR ^= (1<<7); // toggle bit 7 in P1DIR (RED LED)
+	P1DIR |= (1<<7); // toggle bit 7 in P1DIR (RED LED)
 	
 	incrementCOUNTER(3);
 	int g = getCOUNTER(3);
-	if(g > 10){
+	if(g > 14){
 		setPROGRESS(3);
 		clearCOUNTER(3);
 	}

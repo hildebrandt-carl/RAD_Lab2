@@ -101,7 +101,7 @@ PROCESS_THREAD(main_process, ev, data){
 	//start the watchdog
 	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW;
 	
-	//WDTCTL = WDTPW + WDTCNTCL + WDTHOLD + WDTIS0; //stop watchdog
+	WDTCTL = WDTPW + WDTCNTCL + WDTIS0; 
 	
 	while(1){
  	/* Delay 1 seconds */
