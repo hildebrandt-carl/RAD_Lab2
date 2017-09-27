@@ -10,8 +10,6 @@ PROCESS_THREAD(LED1,ev,data){
 
 	PROCESS_BEGIN();
 
-	printf("Process1\n");
-
     P3OUT ^= (1<<6); // toggle bit 6 in P3OUT (GREEN LED)
 	P3DIR |= (1<<6); // toggle bit 6 in P3DIR (GREEN LED)
 
@@ -33,8 +31,6 @@ PROCESS_THREAD(LED1,ev,data){
 PROCESS_THREAD(LED2,ev,data){
 
 	PROCESS_BEGIN();
-
-	printf("Process2\n");
 	
 	if(getCOUNTER(2) % 2 == 0)
 	{
@@ -58,8 +54,6 @@ PROCESS_THREAD(LED2,ev,data){
 PROCESS_THREAD(LED3,ev,data){
 
 	PROCESS_BEGIN();
-
-	printf("Process3\n");
 
 	P1OUT ^= (1<<7); // toggle bit 7 in P1OUT (RED LED)
 	P1DIR |= (1<<7); // toggle bit 7 in P1DIR (RED LED)
