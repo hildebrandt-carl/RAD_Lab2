@@ -16,13 +16,17 @@ void incrementCOUNTER(uint8_t i)
 	switch(i)   
 	{  
 		case 1:  
-			blinkcounter1++;  
+			blinkcounter1++;
+			break;
 		case 2:  
-			blinkcounter2++;  
+			blinkcounter2++;
+			break; 
 		case 3:  
-			blinkcounter3++;  
+			blinkcounter3++;
+			break;
 		default :  
 			printf("ERROR! Wrong counter incremement value");  
+			break;
 	}
 }
 
@@ -37,7 +41,25 @@ uint8_t getCOUNTER(uint8_t i)
 		case 3: 
 			return(blinkcounter3);
 		default :  
-			printf("ERROR! Wrong counter get value");  
+			printf("ERROR! Wrong counter get value");
+	}	
+}
+
+uint8_t clearCOUNTER(uint8_t i)
+{
+	switch(i)   
+	{  
+		case 1:  
+			blinkcounter1 = 0;
+			break; 
+		case 2:  
+			blinkcounter2 = 0;
+			break;  
+		case 3: 
+			blinkcounter3 = 0;
+			break;
+		default :  
+			printf("ERROR! Wrong counter get value");
 	}	
 }
 
@@ -51,8 +73,21 @@ void clearPROGRESS(){
 }
 
 void setPROGRESS(uint8_t i){
-
-
+	switch(i)
+	{
+		case 1:
+			PROGRESS |= (1<<1);
+			break;
+		case 2:
+			PROGRESS |= (1<<2);
+			break;
+		case 3:
+			PROGRESS |= (1<<3);
+			break;
+		default:
+			printf("ERROR!");
+			break;
+	}
 }
 
 PROCESS_THREAD(main_process, ev, data){
@@ -66,7 +101,7 @@ PROCESS_THREAD(main_process, ev, data){
 	//start the watchdog
 	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW;
 	
-	WDTCTL = WDTPW + WDTCNTCL + WDTHOLD + WDTIS0;
+	//WDTCTL = WDTPW + WDTCNTCL + WDTHOLD + WDTIS0; //stop watchdog
 	
 	while(1){
  	/* Delay 1 seconds */

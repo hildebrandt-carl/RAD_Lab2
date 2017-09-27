@@ -11,7 +11,14 @@ PROCESS_THREAD(LED1,ev,data){
 	PROCESS_BEGIN();
 
         P3OUT ^= (1<<6); // toggle bit 6 in P3OUT (GREEN LED)
-		P3DIR ^= (1<<6); // toggle bit 6 in P3DIR (GREEN LED)
+	P3DIR ^= (1<<6); // toggle bit 6 in P3DIR (GREEN LED)
+
+	incrementCOUNTER(1);
+	int g = getCOUNTER(1);
+	if(g > 10){
+		setPROGRESS(1);
+		clearCOUNTER(1);
+	}
 		
 	process_start(&WDTCHECK, NULL);
 	PROCESS_END();
@@ -28,6 +35,13 @@ PROCESS_THREAD(LED2,ev,data){
 	P3OUT ^= (1<<7); // toggle bit 7 in P3OUT (YELLOW LED)
 	P3DIR ^= (1<<7); // toggle bit 7 in P3DIR (YELLOW LED)
 
+	incrementCOUNTER(2);
+	int g = getCOUNTER(2);
+	if(g > 10){
+		setPROGRESS(2);
+		clearCOUNTER(2);
+	}
+
 	process_start(&WDTCHECK, NULL);
 	PROCESS_END();
 
@@ -40,6 +54,13 @@ PROCESS_THREAD(LED3,ev,data){
 
 	P1OUT ^= (1<<7); // toggle bit 7 in P1OUT (RED LED)
 	P1DIR ^= (1<<7); // toggle bit 7 in P1DIR (RED LED)
+	
+	incrementCOUNTER(3);
+	int g = getCOUNTER(3);
+	if(g > 10){
+		setPROGRESS(3);
+		clearCOUNTER(3);
+	}
 
 	process_start(&WDTCHECK, NULL);
 	PROCESS_END();
@@ -51,8 +72,11 @@ PROCESS_THREAD(WDTCHECK,ev,data){
 
 	PROCESS_BEGIN();
 
-	//TODO: 
-	printf("%d\n",getPROGRESS());
+	uint8_t p = getPROGRESS();
+	if((p & 0x0E) == 0x0E){
+		WDTCTL = (WDTCTL & 0xFF) + WDTPW + WDTCNTCL; //kick watchdog
+		clearPROGRESS();
+	}
 
 	PROCESS_END();
 
