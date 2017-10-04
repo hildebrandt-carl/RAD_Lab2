@@ -11,6 +11,12 @@ static struct etimer et;
 PROCESS(main_process, "Main Task");
 AUTOSTART_PROCESSES(&main_process);
 
+void ErrorLogging(uint8_t i)
+{
+	printf("Error code %d\r\n",i);
+}
+
+// Increments the blink counter relating to the passed integer.
 void incrementCOUNTER(uint8_t i)
 {
 	switch(i)   
@@ -30,6 +36,7 @@ void incrementCOUNTER(uint8_t i)
 	}
 }
 
+// Returns the blink counter relating to the passed integer
 uint8_t getCOUNTER(uint8_t i)
 {
 	switch(i)   
@@ -45,6 +52,8 @@ uint8_t getCOUNTER(uint8_t i)
 	}	
 }
 
+
+// The function clears the blink counter relating to the passed integer.
 void clearCOUNTER(uint8_t i)
 {
 	switch(i)   
@@ -63,15 +72,18 @@ void clearCOUNTER(uint8_t i)
 	}	
 }
 
+// Returns the progress variable
 uint8_t getPROGRESS()
 {
 	return PROGRESS;
 }
 
+// Clears the progress variable. Sets all bits to 0
 void clearPROGRESS(){
 	PROGRESS=0;
 }
 
+// Takes and integer which represents a progress is complete. It saves this integer in the progress variable as a single bit
 void setPROGRESS(uint8_t i){
 	switch(i)
 	{
@@ -95,20 +107,19 @@ PROCESS_THREAD(main_process, ev, data){
 	/*begin the process*/
 	PROCESS_BEGIN();	
 	
-	/*initialize the watchdog below by uncommenting the line and then redefine the WDTIS bits according to the time period you need for the watchdog. Note that WDTIS0 refers to bit 0 among WDTIS bits and so on. */
-	//WDTCTL = WDTPW + WDTCNTCL + WDTHOLD +WDTISx;
+	// Sets up the watchdog timer to use interval of 16s
+	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS1 + WDTIS0
 
 	//start the watchdog
 	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW;
 	
-	WDTCTL = WDTPW + WDTCNTCL + WDTIS0; 
-	
 	while(1){
- 	/* Delay 1 seconds */
-	/*start the event timer and set its event period to 1 second*/
+ 	// Delay 1 seconds 
+	// start the event timer and set its event period to 1 second
 	etimer_set(&et, 1*CLOCK_SECOND);
 	PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 
+	// Call the different processors in tasks.c
 	process_start(&LED1,NULL);
 	
 	process_start(&LED2, NULL);

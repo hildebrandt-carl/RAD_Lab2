@@ -6,9 +6,7 @@
  #include "dev/serial-line.h"
 #include "config.h"
 
-
 /*Declare the processes*/
-
 
 PROCESS_NAME(main_process);/*main process*/
 PROCESS_NAME(LED1);/*process 1: control RED LED*/

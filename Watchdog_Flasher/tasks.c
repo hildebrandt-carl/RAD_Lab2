@@ -7,6 +7,26 @@ PROCESS(WDTCHECK,"WDTCHECK TASK");
 
 /*process 1: control GREEN LED*/
 PROCESS_THREAD(LED1,ev,data){
+	
+		PROCESS_BEGIN();
+	
+		P3OUT ^= (1<<6); // toggle bit 6 in P3OUT (GREEN LED)
+		P3DIR |= (1<<6); // toggle bit 6 in P3DIR (GREEN LED)
+	
+		incrementCOUNTER(1);
+		int g = getCOUNTER(1);
+		if(g > 6){
+			setPROGRESS(1);
+			clearCOUNTER(1);
+		}
+			
+		process_start(&WDTCHECK, NULL);
+		PROCESS_END();
+	
+	}
+
+/*process 1: control GREEN LED*/
+PROCESS_THREAD(LED1,ev,data){
 
 	PROCESS_BEGIN();
 
@@ -77,8 +97,8 @@ PROCESS_THREAD(WDTCHECK,ev,data){
 
 	uint8_t p = getPROGRESS();
 	if((p & 0x0E) == 0x0E){
-		WDTCTL = (WDTCTL & 0xFF) + WDTPW + WDTCNTCL; //kick watchdog
 		clearPROGRESS();
+		WDTCTL = (WDTCTL & 0xFF) + WDTPW + WDTCNTCL; //kick watchdog
 	}
 
 	PROCESS_END();
