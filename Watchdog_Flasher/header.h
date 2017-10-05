@@ -18,6 +18,7 @@ PROCESS_NAME(WDTCHECK);/*function to kick the watchdog*/
 uint8_t getPROGRESS();
 void setPROGRESS(uint8_t); /*if the arugment passed to the function call is 0 then set bit 0 in PROGRESS and so on.*/
 void clearPROGRESS();
+void ErrorLogging(unit8_t);
 
 void incrementCOUNTER(uint8_t); //*if the arugment passed to the function call is 0 then increment counter associated with process1 (RED LED).*/
 uint8_t getCOUNTER(uint8_t); /*returns the counter for process1 if argument passed is 0*/
