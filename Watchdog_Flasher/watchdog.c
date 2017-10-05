@@ -49,7 +49,8 @@ uint8_t getCOUNTER(uint8_t i)
 			return(blinkcounter3);
 		default :  
 			printf("ERROR! Wrong counter get value");
-	}	
+			return 0;
+	}
 }
 
 
@@ -108,16 +109,20 @@ PROCESS_THREAD(main_process, ev, data){
 	PROCESS_BEGIN();	
 	
 	// Sets up the watchdog timer to use interval of 16s
-	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS1 + WDTIS0
+	WDTCTL = WDTPW + WDTSSEL0 + WDTHOLD + WDTIS1 + WDTIS0;
 
 	//start the watchdog
 	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW;
-	
+
+	printf("Starting up the system\r\n");
+	static int i_cnt = 0;
 	while(1){
  	// Delay 1 seconds 
 	// start the event timer and set its event period to 1 second
 	etimer_set(&et, 1*CLOCK_SECOND);
 	PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+	i_cnt++;
+	printf("System has been running for %d seconds.\r\n",i_cnt);
 
 	// Call the different processors in tasks.c
 	process_start(&LED1,NULL);

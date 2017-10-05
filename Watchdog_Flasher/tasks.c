@@ -25,27 +25,6 @@ PROCESS_THREAD(LED1,ev,data){
 	
 	}
 
-/*process 1: control GREEN LED*/
-PROCESS_THREAD(LED1,ev,data){
-
-	PROCESS_BEGIN();
-
-    P3OUT ^= (1<<6); // toggle bit 6 in P3OUT (GREEN LED)
-	P3DIR |= (1<<6); // toggle bit 6 in P3DIR (GREEN LED)
-
-	incrementCOUNTER(1);
-	int g = getCOUNTER(1);
-	if(g > 6){
-		setPROGRESS(1);
-		clearCOUNTER(1);
-	}
-		
-	process_start(&WDTCHECK, NULL);
-	PROCESS_END();
-
-}
-
-
 
 /*process 2: control YELLOW LED*/
 PROCESS_THREAD(LED2,ev,data){
