@@ -17,6 +17,7 @@ PROCESS_THREAD(LED1,ev,data){
 		int g = getCOUNTER(1);
 		if(g > 6){
 			setPROGRESS(1);
+			ErrorLogging("LED 1 Finished task");
 			clearCOUNTER(1);
 		}
 			
@@ -41,6 +42,7 @@ PROCESS_THREAD(LED2,ev,data){
 	int g = getCOUNTER(2);
 	if(g > 8){
 		setPROGRESS(2);
+		ErrorLogging("LED 2 Finished task");
 		clearCOUNTER(2);
 	}
 
@@ -61,6 +63,7 @@ PROCESS_THREAD(LED3,ev,data){
 	int g = getCOUNTER(3);
 	if(g > 14){
 		setPROGRESS(3);
+		ErrorLogging("LED 3 Finished task");
 		clearCOUNTER(3);
 	}
 
@@ -77,6 +80,7 @@ PROCESS_THREAD(WDTCHECK,ev,data){
 	uint8_t p = getPROGRESS();
 	if((p & 0x0E) == 0x0E){
 		clearPROGRESS();
+		ErrorLogging("Watchdog being kicked");
 		WDTCTL = (WDTCTL & 0xFF) + WDTPW + WDTCNTCL; //kick watchdog
 	}
 

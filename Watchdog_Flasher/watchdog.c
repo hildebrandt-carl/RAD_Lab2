@@ -1,4 +1,6 @@
 #include "header.h"
+#include <stdio.h>
+
 static uint8_t PROGRESS=0;
 /*counters to keep track of task progress*/
 static uint16_t count=0;
@@ -11,9 +13,9 @@ static struct etimer et;
 PROCESS(main_process, "Main Task");
 AUTOSTART_PROCESSES(&main_process);
 
-void ErrorLogging(uint8_t i)
+void ErrorLogging(char* str)
 {
-	printf("Error code %d\r\n",i);
+	printf("Status Log: %s\r\n",str);
 }
 
 // Increments the blink counter relating to the passed integer.
@@ -114,7 +116,7 @@ PROCESS_THREAD(main_process, ev, data){
 	//start the watchdog
 	WDTCTL = (WDTCTL_L&~(WDTHOLD))+ WDTPW;
 
-	printf("Starting up the system\r\n");
+	ErrorLogging("Starting up the system RAD_TEAM");
 	static int i_cnt = 0;
 	while(1){
  	// Delay 1 seconds 
@@ -122,7 +124,10 @@ PROCESS_THREAD(main_process, ev, data){
 	etimer_set(&et, 1*CLOCK_SECOND);
 	PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 	i_cnt++;
-	printf("System has been running for %d seconds.\r\n",i_cnt);
+	
+	char* secondCounterStr[50];
+	sprintf(secondCounterStr,"System has been running for %d seconds.",i_cnt);
+	ErrorLogging(secondCounterStr);
 
 	// Call the different processors in tasks.c
 	process_start(&LED1,NULL);
